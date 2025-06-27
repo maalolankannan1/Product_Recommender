@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template
 from recommender import recommend_items, top5_products
+import nltk
+nltk.data.path.append('./nltk_data')
 
 app = Flask(__name__)
 

@@ -16,15 +16,7 @@ user_final_rating = pd.read_pickle("pickle_files/user_final_rating1.pkl")
 tfidf_vectorizer = pd.read_pickle("pickle_files/tfidf_vectorizer.pkl")
 model = pd.read_pickle("pickle_files/XGBoost_classifier_grid.pkl")
 product_df = pd.read_csv('sample30.csv',sep=",")
-
-try:
-    nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
-    nltk.download('punkt_tab')
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords')
+nltk.data.path.append('./nltk_data')
 
 def clean_text(text):
     text = str(text).lower()

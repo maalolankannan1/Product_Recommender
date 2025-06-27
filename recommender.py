@@ -14,7 +14,7 @@ lemmatizer = WordNetLemmatizer()
 # Loading pivot table, model, or predictions (e.g., from a pickle file)
 
 user_final_rating = pd.read_pickle("pickle_files/user_final_rating1.pkl")
-tfidf_vectorizer = pd.read_pickle("pickle_files/tfidf_vectorizer.pkl")
+tfidf_vectorizer = pd.read_pickle("pickle_files/Tfidf_vectorizer.pkl")
 model = pd.read_pickle("pickle_files/XGBoost_classifier_grid.pkl")
 product_df = pd.read_csv('sample30.csv',sep=",")
 
@@ -44,7 +44,6 @@ def model_predict(text):
     return output
 
 def recommend_items(user_id, top_n=5):
-    download_nltk_resources()
     if user_id not in user_final_rating.index:
         return None
     product_list = pd.DataFrame(user_final_rating.loc[user_id].sort_values(ascending=False)[0:20])

@@ -17,15 +17,14 @@ tfidf_vectorizer = pd.read_pickle("pickle_files/tfidf_vectorizer.pkl")
 model = pd.read_pickle("pickle_files/XGBoost_classifier_grid.pkl")
 product_df = pd.read_csv('sample30.csv',sep=",")
 
-def download_nltk_resources():
-    try:
-        nltk.data.find('tokenizers/punkt_tab')
-    except LookupError:
-        nltk.download('punkt_tab')
-    try:
-        nltk.data.find('corpora/stopwords')
-    except LookupError:
-        nltk.download('stopwords')
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab')
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
 
 def clean_text(text):
     text = str(text).lower()

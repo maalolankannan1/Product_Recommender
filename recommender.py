@@ -47,6 +47,7 @@ def model_predict(text):
     return output
 
 def recommend_items(user_id, top_n=5):
+    print(f"Recommending items for user: {user_id}")
     if user_id not in user_final_rating.index:
         return None
     product_list = pd.DataFrame(user_final_rating.loc[user_id].sort_values(ascending=False)[0:20])
@@ -54,9 +55,11 @@ def recommend_items(user_id, top_n=5):
     output_df = product_frame[['name','reviews_text']]
     output_df['lemmatized_text'] = output_df['reviews_text'].map(lambda text: preprocess_text(text))
     output_df['predicted_sentiment'] = model_predict(output_df['lemmatized_text'])
+    print(f"Predicted sentiments for user {user_id}: {output_df['predicted_sentiment'].value_counts()}")
     return output_df
 
 def top5_products(df):
+    print("Calculating top 5 products based on positive sentiment...")
     total_product=df.groupby(['name']).agg('count')
     rec_df = df.groupby(['name','predicted_sentiment']).agg('count')
     rec_df=rec_df.reset_index()
@@ -64,4 +67,5 @@ def top5_products(df):
     merge_df['%percentage'] = (merge_df['reviews_text_x']/merge_df['reviews_text_y'])*100
     merge_df=merge_df.sort_values(ascending=False,by='%percentage')
     output_products = pd.DataFrame(merge_df['name'][merge_df['predicted_sentiment'] ==  1][:5])
+    print(f"Top 5 products based on positive sentiment: {output_products['name'].tolist()}")
     return output_products

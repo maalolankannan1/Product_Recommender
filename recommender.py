@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 import nltk
-nltk.data.path.append('./nltk_data')
+# nltk.data.path.append('./nltk_data')
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
